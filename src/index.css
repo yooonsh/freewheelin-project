@@ -1,4 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
-body { margin : 0 }
-div { box-sizing : border-box }
+body {
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+* {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
