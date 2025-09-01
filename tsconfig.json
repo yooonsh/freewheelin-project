@@ -1,15 +1,14 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
+      "/*": ["*"],
       "api/*": ["api/*"],
       "types/*": ["types/*"],
-      "config/*": ["config/*"]
+      "config/*": ["config/*"],
+      "components/*": ["components/*"]
     }
   },
   "exclude": ["node_modules"]
