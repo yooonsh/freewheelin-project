@@ -1,6 +1,7 @@
 // src/components/SimilarList.tsx
 import type { TProblem } from 'types/problem';
-import { Problem, Button, Icon } from 'components';
+import { Problem } from 'components/problem';
+import { Button, Icon } from 'components/common';
 
 type Props = {
   problems: TProblem[];

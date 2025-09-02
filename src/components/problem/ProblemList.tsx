@@ -1,7 +1,8 @@
 // src/components/ProblemList.tsx
 import React from 'react';
 import type { TProblem } from 'types/problem';
-import { Problem, Button } from 'components';
+import { Button } from 'components/common';
+import { Problem } from 'components/problem';
 
 type Props = {
   problems: TProblem[];

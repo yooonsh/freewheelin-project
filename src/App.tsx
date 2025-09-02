@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { getProblems, getSimilarProblems } from 'api/problem';
 import type { TProblem } from 'types/problem';
 import { useQuery } from '@tanstack/react-query';
-import { SimilarList, ProblemList } from 'components';
+import { SimilarList, ProblemList } from 'components/problem';
 import { cn } from 'lib/cn';
 
 function App() {
