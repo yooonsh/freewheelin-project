@@ -5,10 +5,10 @@ import type { TProblem, TGetSimilarProblemsParams } from 'types';
 export const getProblems = async () => {
   try {
     const response = await API.get('/problems');
-    console.log(response.data);
-    return response.data;
+    return response.data ?? [];
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
 

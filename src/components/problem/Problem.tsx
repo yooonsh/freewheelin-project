@@ -1,5 +1,5 @@
 import type { TProblem } from 'types/problem';
-import { Tag } from './Tag';
+import { Tag } from '../common/Tag';
 import { cn } from 'lib/cn';
 import { useEffect } from 'react';
 
@@ -39,7 +39,12 @@ export const Problem = ({ problem, index, buttons, isSelected }: TProblemProps) 
           <Tag type={problem.type} />
         </div>
         <div>
-          <img className="w-4/5" src={problem.problemImageUrl} alt={problem.title} />
+          <img
+            loading="lazy"
+            className="w-4/5 xl:w-3/5"
+            src={problem.problemImageUrl}
+            alt={problem.title}
+          />
         </div>
       </div>
     </div>

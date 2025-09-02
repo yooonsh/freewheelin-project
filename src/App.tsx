@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getProblems, getSimilarProblems } from 'api/problem';
 import type { TProblem } from 'types/problem';
 import { useQuery } from '@tanstack/react-query';
-import { Problem, Button, Icon } from 'components';
+import { SimilarList, ProblemList } from 'components/problem';
 import { cn } from 'lib/cn';
 
 function App() {
@@ -11,13 +11,16 @@ function App() {
   const [similarProblems, setSimilarProblems] = useState<TProblem[]>([]);
 
   // 문제 리스트 조회
-  const { data: problemsData } = useQuery<TProblem[]>({
+  useQuery<TProblem[]>({
     queryKey: ['problems'],
     queryFn: async () => {
       const data = await getProblems();
       setProblems(data);
       return data;
     },
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   // 유사 문제 조회
@@ -102,107 +105,37 @@ function App() {
 
   return (
     <div className="m-auto flex min-h-[740px] w-fit flex-row gap-4 px-6 py-3.5">
-      {/* 유사문제 리스트 영역 */}
-      <div className="h-[calc(100vh-28px)] w-[480px] rounded-xl bg-[#E8E8E8] p-4 xl:w-[504px]">
-        {similarProblems.length > 0 ? (
-          <>
-            <h2 className="mb-4 text-base leading-6 font-bold tracking-[-0.01em] text-[#333]">
-              유사 문제
-            </h2>
-            <div className="flex h-[calc(100vh-108px)] flex-col gap-4 overflow-y-auto">
-              {similarProblems.map((problem, index) => (
-                <Problem
-                  key={problem.id}
-                  problem={problem}
-                  index={index}
-                  buttons={
-                    <div className="flex gap-3">
-                      <Button icon="swapHoriz" onClick={() => replaceSelectedWith(problem)}>
-                        교체
-                      </Button>
-                      <Button icon="addCircle" onClick={() => addAfterSelected(problem)}>
-                        추가
-                      </Button>
-                    </div>
-                  }
-                />
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <p className="text-center text-[14px] leading-[21px] font-normal tracking-[-0.002em] text-[#333333]">
-              <span className="mr-1.5 inline-flex h-6 w-[57px] items-center justify-center gap-[1px] rounded-xs border-[0.6px] border-[#E0E0E0] bg-white text-[9px] leading-[12px] font-normal tracking-normal text-[#959595]">
-                <Icon name="addCircle" width={10} height={10} />
-                유사문제
-              </span>
-              버튼을 누르면
-              <br />
-              문제를 추가 또는 교체할수 있습니다.
-            </p>
-          </div>
-        )}
-      </div>
-      {/* 문제 리스트 영역 */}
-      <div className="flex h-[calc(100vh-28px)] w-[480px] flex-col justify-between overflow-hidden rounded-xl bg-[#5C5C5C] p-4 pb-0 xl:w-[712px]">
-        <div className="h-[calc(100%-64px)]">
-          <h2 className="mb-4 text-base leading-6 font-bold tracking-[-0.01em] text-[#fff]">
-            문제 리스트
-          </h2>
-          {problems.length > 0 ? (
-            <div className="flex h-[calc(100%-40px)] flex-col gap-4 overflow-y-auto">
-              {problems.map((problem, index) => (
-                <Problem
-                  key={problem.id}
-                  problem={problem}
-                  index={index}
-                  isSelected={selectedProblemId === problem.id}
-                  buttons={
-                    <div className="flex gap-3">
-                      <Button
-                        icon={selectedProblemId === problem.id ? 'addCircleActive' : 'addCircle'}
-                        onClick={() => fetchSimilar(problem.id)}
-                        className={selectedProblemId === problem.id ? 'text-[#00ABFF]' : ''}
-                      >
-                        유사문제
-                      </Button>
-                      <Button icon="delete" onClick={() => deleteFromMain(problem.id)}>
-                        삭제
-                      </Button>
-                    </div>
-                  }
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="flex h-[calc(100%-40px)] items-center justify-center">
-              <p className="flex items-center justify-center text-center text-[14px] leading-[21px] font-normal tracking-[-0.002em] text-white">
-                학습지 문제수가 없습니다.
-                <br />
-                다음단계로 넘어가기 위해 문제를 추가해주세요.
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="flex justify-end px-2 py-5">
+      {/* 유사문제 리스트 */}
+      <SimilarList
+        problems={similarProblems}
+        onReplace={replaceSelectedWith}
+        onAddAfter={addAfterSelected}
+      />
+      {/* 문제 리스트 */}
+      <ProblemList
+        problems={problems}
+        selectedId={selectedProblemId}
+        onClickSimilar={fetchSimilar}
+        onDelete={deleteFromMain}
+        footer={
           <p className="text-[16px] leading-[24px] font-normal tracking-[-0.01em] text-white">
             {totalCount > 0 && (
-              <>
+              <span className="opacity-80">
                 {([1, 2, 3, 4, 5] as const)
+                  .filter((lv) => levelCounts[lv] > 0)
                   .map((lv) => `${levelLabel[lv]}${levelCounts[lv]}`)
                   .join(' · ')}
                 <span className="relative bottom-[1px] ml-2">|</span>
-              </>
+              </span>
             )}
             <span
               className={cn('ml-1 font-bold', totalCount === 0 ? 'text-[#FD5354]' : 'text-white')}
             >
-              {' '}
               문제 수 {totalCount} 개
             </span>
           </p>
-        </div>
-      </div>
+        }
+      />
     </div>
   );
 }
