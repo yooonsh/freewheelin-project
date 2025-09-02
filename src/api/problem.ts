@@ -2,13 +2,13 @@ import API from 'config/axios';
 import type { TProblem, TGetSimilarProblemsParams } from 'types';
 
 // 문제 리스트 조회
-export const getProblems = async () => {
+export const getProblems = async (): Promise<TProblem[]> => {
   try {
-    const response = await API.get('/problems');
+    const response = await API.get<TProblem[]>('/problems');
     return response.data ?? [];
   } catch (error) {
     console.error(error);
-    return [];
+    return [] as TProblem[];
   }
 };
 

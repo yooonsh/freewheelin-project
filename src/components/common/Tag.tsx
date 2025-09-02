@@ -1,16 +1,18 @@
-import type { TProblem } from 'types/problem';
+import type { TLevel, TProblem } from 'types/problem';
+import { LEVEL_LABEL_MAP, PROBLEM_TYPE_LABEL_MAP } from 'types/problem';
+import type { TLevelLabel } from 'types/problem';
 
 type TTagProps = Partial<Pick<TProblem, 'level' | 'answerRate' | 'type'>>;
 
 const BASE_TAG_CLASS =
   'text-center align-middle text-[12px] w-10 leading-[18px] font-normal tracking-[0%] bg-[#F5F5F5] rounded-s';
 
-const LEVEL_META: Record<1 | 2 | 3 | 4 | 5, { color: string; label: string }> = {
-  1: { color: 'text-[#5C5C5C]', label: '하' },
-  2: { color: 'text-[#00ABFF]', label: '중하' },
-  3: { color: 'text-[#54C0B1]', label: '중' },
-  4: { color: 'text-[#FFC64D]', label: '상' },
-  5: { color: 'text-[#FD5354]', label: '최상' },
+const LEVEL_META: Record<TLevel, { color: string; label: TLevelLabel }> = {
+  1: { color: 'text-[#5C5C5C]', label: LEVEL_LABEL_MAP[1] }, // 하
+  2: { color: 'text-[#00ABFF]', label: LEVEL_LABEL_MAP[2] }, // 중하
+  3: { color: 'text-[#54C0B1]', label: LEVEL_LABEL_MAP[3] }, // 중
+  4: { color: 'text-[#FFC64D]', label: LEVEL_LABEL_MAP[4] }, // 상
+  5: { color: 'text-[#FD5354]', label: LEVEL_LABEL_MAP[5] }, // 최상
 };
 
 export const Tag = ({ level, answerRate, type }: TTagProps) => {
@@ -25,7 +27,7 @@ export const Tag = ({ level, answerRate, type }: TTagProps) => {
     text = `${answerRate}%`;
     colorClass = 'text-[#707070]';
   } else if (type !== undefined) {
-    text = type === 1 ? '객관식' : '주관식';
+    text = PROBLEM_TYPE_LABEL_MAP[type];
     colorClass = 'text-[#959595]';
   }
 

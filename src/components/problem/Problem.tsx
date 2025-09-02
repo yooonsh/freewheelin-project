@@ -1,7 +1,6 @@
 import type { TProblem } from 'types/problem';
 import { Tag } from '../common/Tag';
 import { cn } from 'lib/cn';
-import { useEffect } from 'react';
 
 type TProblemProps = {
   problem: TProblem;
@@ -11,9 +10,6 @@ type TProblemProps = {
 };
 
 export const Problem = ({ problem, index, buttons, isSelected }: TProblemProps) => {
-  useEffect(() => {
-    console.log(isSelected, problem.id);
-  }, [isSelected, problem.id]);
   return (
     <div
       className={cn(
