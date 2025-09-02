@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { getProblems, getSimilarProblems } from 'api/problem';
-import type { TProblem } from 'types/problem';
+import { LEVEL_LABEL_MAP, LEVELS, type TLevel, type TProblem } from 'types/problem';
 import { useQuery } from '@tanstack/react-query';
 import { SimilarList, ProblemList } from 'components/problem';
 import { cn } from 'lib/cn';
@@ -76,7 +76,9 @@ function App() {
     // 유사문제 리스트에서 제거
     setSimilarProblems((prev) => prev.filter((p) => p.id !== item.id));
   };
-  const deleteFromMain = (targetId: number) => {
+
+  // 문제제 리스트에서 삭제
+  const deleteFromList = (targetId: number) => {
     const wasSelected = selectedProblemId === targetId;
     setProblems((prev) => prev.filter((p) => p.id !== targetId));
     if (wasSelected) {
@@ -86,7 +88,7 @@ function App() {
   };
 
   // 문제 수 계산
-  const levelCounts = problems.reduce<Record<1 | 2 | 3 | 4 | 5, number>>(
+  const levelCounts = problems.reduce<Record<TLevel, number>>(
     (acc, p) => {
       acc[p.level] += 1;
       return acc;
@@ -94,14 +96,6 @@ function App() {
     { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
   );
   const totalCount = problems.length;
-
-  const levelLabel: Record<1 | 2 | 3 | 4 | 5, string> = {
-    1: '하',
-    2: '중하',
-    3: '중',
-    4: '상',
-    5: '최상',
-  };
 
   return (
     <div className="m-auto flex min-h-[740px] w-fit flex-row gap-4 px-6 py-3.5">
@@ -116,16 +110,15 @@ function App() {
         problems={problems}
         selectedId={selectedProblemId}
         onClickSimilar={fetchSimilar}
-        onDelete={deleteFromMain}
+        onDelete={deleteFromList}
         footer={
           <p className="text-[16px] leading-[24px] font-normal tracking-[-0.01em] text-white">
             {totalCount > 0 && (
-              <span className="opacity-80">
-                {([1, 2, 3, 4, 5] as const)
-                  .filter((lv) => levelCounts[lv] > 0)
-                  .map((lv) => `${levelLabel[lv]}${levelCounts[lv]}`)
+              <span className="text-[14px] opacity-80 xl:text-[16px]">
+                {LEVELS.filter((lv) => levelCounts[lv] > 0)
+                  .map((lv) => `${LEVEL_LABEL_MAP[lv]}${levelCounts[lv]}`)
                   .join(' · ')}
-                <span className="relative bottom-[1px] ml-2">|</span>
+                <span className="relative ml-2">|</span>
               </span>
             )}
             <span
