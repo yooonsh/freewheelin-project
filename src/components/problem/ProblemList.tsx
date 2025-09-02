@@ -14,7 +14,7 @@ type Props = {
 
 export const ProblemList = ({ problems, selectedId, onClickSimilar, onDelete, footer }: Props) => {
   return (
-    <div className="flex h-[calc(100vh-28px)] w-[480px] flex-col justify-between overflow-hidden rounded-xl bg-[#5C5C5C] p-4 pb-0 xl:w-[712px]">
+    <div className="flex h-full w-[480px] flex-col justify-between overflow-hidden rounded-xl bg-[#5C5C5C] p-4 pb-0 xl:w-[712px]">
       <div className="h-[calc(100%-64px)]">
         <h2 className="mb-4 text-base leading-6 font-bold tracking-[-0.01em] text-[#fff]">
           학습지 상세 편집
