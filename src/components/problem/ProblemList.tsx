@@ -17,7 +17,7 @@ export const ProblemList = ({ problems, selectedId, onClickSimilar, onDelete, fo
     <div className="flex h-[calc(100vh-28px)] w-[480px] flex-col justify-between overflow-hidden rounded-xl bg-[#5C5C5C] p-4 pb-0 xl:w-[712px]">
       <div className="h-[calc(100%-64px)]">
         <h2 className="mb-4 text-base leading-6 font-bold tracking-[-0.01em] text-[#fff]">
-          문제 리스트
+          학습지 상세 편집
         </h2>
         {problems.length > 0 ? (
           <div className="flex h-[calc(100%-40px)] flex-col gap-4 overflow-y-auto">

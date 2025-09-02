@@ -120,12 +120,13 @@ function App() {
         footer={
           <p className="text-[16px] leading-[24px] font-normal tracking-[-0.01em] text-white">
             {totalCount > 0 && (
-              <>
+              <span className="opacity-80">
                 {([1, 2, 3, 4, 5] as const)
+                  .filter((lv) => levelCounts[lv] > 0)
                   .map((lv) => `${levelLabel[lv]}${levelCounts[lv]}`)
                   .join(' · ')}
                 <span className="relative bottom-[1px] ml-2">|</span>
-              </>
+              </span>
             )}
             <span
               className={cn('ml-1 font-bold', totalCount === 0 ? 'text-[#FD5354]' : 'text-white')}

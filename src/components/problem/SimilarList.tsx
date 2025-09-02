@@ -15,7 +15,7 @@ export const SimilarList = ({ problems, onReplace, onAddAfter }: Props) => {
       {problems.length > 0 ? (
         <>
           <h2 className="mb-4 text-base leading-6 font-bold tracking-[-0.01em] text-[#333]">
-            유사 문제
+            유사 문항
           </h2>
           <div className="flex h-[calc(100vh-108px)] flex-col gap-4 overflow-y-auto">
             {problems.map((problem, index) => (
