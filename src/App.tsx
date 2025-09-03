@@ -58,7 +58,7 @@ function App() {
 
     setProblems(nextMain);
     setSimilarProblems(nextSimilar);
-    setSelectedProblemId(item.id); // 스왑된 아이템을 선택 상태로 유지
+    setSelectedProblemId(item.id); // 교체된 아이템을 선택 상태로 유지
   };
 
   // 선택된 문제 뒤에 추가
@@ -67,7 +67,7 @@ function App() {
     const idx = problems.findIndex((p) => p.id === selectedProblemId);
     if (idx < 0) return;
 
-    // 메인 리스트에 선택된 문제 바로 뒤에 추가(중복 방지 옵션)
+    // 메인 리스트에 선택된 문제 바로 뒤에 추가
     setProblems((prev) => {
       if (prev.some((p) => p.id === item.id)) return prev;
       return [...prev.slice(0, idx + 1), item, ...prev.slice(idx + 1)];
@@ -77,7 +77,7 @@ function App() {
     setSimilarProblems((prev) => prev.filter((p) => p.id !== item.id));
   };
 
-  // 문제제 리스트에서 삭제
+  // 문제 리스트에서 삭제
   const deleteFromList = (targetId: number) => {
     const wasSelected = selectedProblemId === targetId;
     setProblems((prev) => prev.filter((p) => p.id !== targetId));
