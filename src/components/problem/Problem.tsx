@@ -19,10 +19,10 @@ export const Problem = ({ problem, index, buttons, isSelected }: TProblemProps) 
     >
       <div className="flex items-center justify-between gap-[13px] rounded-t-xl bg-[#FAFAFA] px-4 py-2.5">
         <p className="flex min-w-0 items-center gap-2">
-          <span className="min-w-10 text-center text-[18px] leading-[24px] font-bold tracking-[-0.01em] break-all">
+          <span className="min-w-10 text-center text-[18px] leading-[24px] font-bold tracking-[-0.01em] break-all text-[#333]">
             {index + 1}
           </span>
-          <span className="truncate text-[14px] leading-[21px] tracking-[-0.002em]">
+          <span className="truncate text-[14px] leading-[21px] tracking-[-0.002em] text-[#333]">
             {problem.title}
           </span>
         </p>
