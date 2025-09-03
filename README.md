@@ -4,4 +4,4 @@
 
 프로젝트의 구현 내용을 간단히 정리해두었습니다. 감사합니다.
 
-[프로젝트 노션 정리](https://www.notion.so/26293e1281828003a89fed1dbe31edf2)
+<a href="https://www.notion.so/26293e1281828003a89fed1dbe31edf2" target="_blank" rel="noopener noreferrer">프로젝트 노션 정리</a>
