@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { getProblems, getSimilarProblems } from 'api/problem';
-import { LEVEL_LABEL_MAP, LEVELS, type TLevel, type TProblem } from 'types/problem';
+import { type TLevel, type TProblem } from 'types/problem';
 import { useQuery } from '@tanstack/react-query';
 import { SimilarList, ProblemList } from 'components/problem';
-import { cn } from 'lib/cn';
 
 function App() {
   const [problems, setProblems] = useState<TProblem[]>([]);
@@ -111,23 +110,8 @@ function App() {
         selectedId={selectedProblemId}
         onClickSimilar={fetchSimilar}
         onDelete={deleteFromList}
-        footer={
-          <p className="text-[16px] leading-[24px] font-normal tracking-[-0.01em] text-white">
-            {totalCount > 0 && (
-              <span className="text-[14px] opacity-80 xl:text-[16px]">
-                {LEVELS.filter((lv) => levelCounts[lv] > 0)
-                  .map((lv) => `${LEVEL_LABEL_MAP[lv]}${levelCounts[lv]}`)
-                  .join(' · ')}
-                <span className="relative ml-2">|</span>
-              </span>
-            )}
-            <span
-              className={cn('ml-1 font-bold', totalCount === 0 ? 'text-[#FD5354]' : 'text-white')}
-            >
-              문제 수 {totalCount} 개
-            </span>
-          </p>
-        }
+        totalCount={totalCount}
+        levelCounts={levelCounts}
       />
     </div>
   );
