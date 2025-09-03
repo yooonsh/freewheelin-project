@@ -98,7 +98,7 @@ function App() {
   const totalCount = problems.length;
 
   return (
-    <div className="m-auto flex min-h-[740px] w-fit flex-row gap-4 px-6 py-3.5">
+    <div className="m-auto flex h-screen min-h-[740px] w-fit flex-row gap-4 px-6 py-3.5">
       {/* 유사문제 리스트 */}
       <SimilarList
         problems={similarProblems}

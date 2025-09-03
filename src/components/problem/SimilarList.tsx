@@ -11,7 +11,7 @@ type Props = {
 
 export const SimilarList = ({ problems, onReplace, onAddAfter }: Props) => {
   return (
-    <div className="h-[calc(100vh-28px)] w-[480px] rounded-xl bg-[#E8E8E8] p-4 xl:w-[504px]">
+    <div className="h-full w-[480px] rounded-xl bg-[#E8E8E8] p-4 xl:w-[504px]">
       {problems.length > 0 ? (
         <>
           <h2 className="mb-4 text-base leading-6 font-bold tracking-[-0.01em] text-[#333]">

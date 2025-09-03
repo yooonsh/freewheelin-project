@@ -7,11 +7,11 @@ type TIconProps = {
   className?: string;
 };
 
-export const Icon = ({ name, width = 16, height = 16 }: TIconProps) => {
+export const Icon = ({ name, width = 16, height = 16, className }: TIconProps) => {
   const IconComponent = iconComponents[name];
 
   return (
-    <span>
+    <span className={className}>
       <img src={IconComponent} alt={name} width={width} height={height} />
     </span>
   );
