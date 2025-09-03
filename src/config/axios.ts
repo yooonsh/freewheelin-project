@@ -6,7 +6,7 @@ const API = axios.create({
   timeout: 60000,
   headers: { Accept: 'application/json' },
   paramsSerializer: {
-    serialize: (params) => stringify(params, { arrayFormat: 'repeat' }),
+    serialize: (params) => stringify(params, { arrayFormat: 'comma' }),
   },
 });
 

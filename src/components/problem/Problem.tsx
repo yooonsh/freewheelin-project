@@ -37,6 +37,7 @@ export const Problem = ({ problem, index, buttons, isSelected }: TProblemProps) 
         <div>
           <img
             loading="lazy"
+            decoding="async"
             className="w-4/5 xl:w-3/5"
             src={problem.problemImageUrl}
             alt={problem.title}
